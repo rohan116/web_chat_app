@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/rohan116/web_chat_app#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^2.0.0",

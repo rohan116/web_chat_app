@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const mongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
+const passport = require('passport');
 
 
 //Creating server using container
@@ -35,19 +36,23 @@ container.resolve(function(users){
   }
 
   function configureExpress(app){
+    require('./passport/passport-local');
+
     app.use(express.static('public'));
-    app.use(validator());
+    app.use(cookieParser());
     app.set('view engine','ejs');
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:true}));
-    app.use(cookieParser());
+    app.use(validator());
     app.use(session({
-      secret : "thisisasecretkey",
-      resave : true,
-      saveInitialized : true,
-      store : new mongoStore({mongooseConnection : mongoose.connection})
+       secret : "thisisasecretkey",
+       resave : true,
+       saveUninitialized : true,
+       store : new mongoStore({mongooseConnection : mongoose.connection})
     }));
-
+    //
     app.use(flash());
+    app.use(passport.initialize());
+    app.use(passport.session());
   }
 });
