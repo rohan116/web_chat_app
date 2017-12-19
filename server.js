@@ -13,7 +13,7 @@ const passport = require('passport');
 
 
 //Creating server using container
-container.resolve(function(users){
+container.resolve(function(users,lodash){
 
   mongoose.Promise = global.Promise;
   mongoose.connect('mongodb://localhost/cricketApp',{useMongoClient:true});
@@ -45,6 +45,7 @@ container.resolve(function(users){
     app.use(bodyParser.urlencoded({extended:true}));
     app.use(validator());
     app.use(session({
+       //cookie: { maxAge: 60000 },
        secret : "thisisasecretkey",
        resave : true,
        saveUninitialized : true,
@@ -54,5 +55,7 @@ container.resolve(function(users){
     app.use(flash());
     app.use(passport.initialize());
     app.use(passport.session());
+
+    app.locals.lodash = lodash;
   }
 });
