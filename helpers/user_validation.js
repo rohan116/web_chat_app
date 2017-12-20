@@ -9,7 +9,7 @@ module.exports = function(){
 
         req.getValidationResult().then((result) => {
           const errors = result.array();
-          console.log(errors);
+          //console.log(errors);
           const messages = [];
           errors.forEach((error) => {
             //console.log(error.msg);
