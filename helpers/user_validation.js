@@ -45,6 +45,29 @@ module.exports = function(){
         }).catch((err) => {
           return next();
         })
+      },
+
+      verifyValidation : (req,res,next) => {
+        req.checkBody('email','Email is a mandatory field').notEmpty();
+        req.checkBody('password','Password is a mandatory field').notEmpty();
+        req.checkBody('email','Email is invalid').isEmail();
+        req.checkBody('password','Password must not be less than 5 character and should contain a digit').isLength({min : 5});
+        req.checkBody('secretToken','Token is a mandatory field').notEmpty();
+
+        req.getValidationResult().then((result) => {
+          const errors = result.array();
+          console.log(errors);
+          const messages = [];
+          errors.forEach((error) => {
+            //console.log(error.msg);
+            messages.push(error.msg);
+          });
+
+          req.flash('validationError',messages);
+          req.redirect('/signup');
+        }).catch((err) => {
+          return next();
+        })
       }
     }
 }

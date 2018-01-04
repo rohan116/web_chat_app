@@ -2,10 +2,10 @@ const nodemailer = require('nodemailer');
 //const config = require('../config/mailer');
 
 const transport = nodemailer.createTransport({
-  service : 'Gmail',
+  service : 'mailgun',
   auth : {
-    user : 'shahrohan116@gmail.com',
-    pass : 'foreverrohan'
+    user : 'postmaster@sandbox602dbdde9cbe4565bfe7a1bfb764f30a.mailgun.org',
+    pass : 'f98924a6205cb89cb3955e410883c596      '
   },
   tls: {
     rejectUnauthorized : false

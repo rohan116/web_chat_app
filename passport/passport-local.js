@@ -20,7 +20,8 @@ passport.use('localVerify', new userStrategy({
    passwordField : 'password',
   passReqToCallback : true },
   (req,email,password,done) => {
-    console.log(req.body);
+    var errors = req.flash('validationError');
+    console.log(errors.length);
       User.findOne({'secretToken': req.body.secretToken.trim()},(err,user) =>{
         if(err){
           console.log(err);
@@ -31,6 +32,12 @@ passport.use('localVerify', new userStrategy({
           user.active = true;
           user.save();
           return done(null,user,req.flash('validationError',`User with "${email}" has been verified successfully.`));
+        }
+        else if(errors.length === 0){
+          return done(null,false,req.flash('validationError','Invalid Token'));
+        }
+        else{
+          return done(null,false,req.flash('validationError',errors));
         }
       });
   }));
@@ -104,6 +111,12 @@ passport.use('localSignup', new userStrategy({
           const messages = [];
           if(!user || !user.decrptPassword(password)){
             messages.push('Email doesnt exist or password is invalid');
+            return done(null,false,req.flash('validationError',messages));
+          }
+          console.log(!user.active);
+          if(user.active === 'false'){
+            console.log('here');
+            messages.push('Please verify your account first');
             return done(null,false,req.flash('validationError',messages));
           }
 

@@ -5,7 +5,7 @@ module.exports = function(lodash,passport,user_validation){
       router.get('/signup',this.getSignUp);
       router.get('/home',this.homePage);
       router.get('/verify',this.verify);
-      router.post('/verify',this.postVerify);
+      router.post('/verify',user_validation.verifyValidation,this.postVerify);
       router.post('/',user_validation.loginValidation,this.postLogin);
       router.post('/signup',user_validation.signUpValidation,this.SignUp);
     },
