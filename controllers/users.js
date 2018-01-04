@@ -5,10 +5,22 @@ module.exports = function(lodash,passport,user_validation){
       router.get('/signup',this.getSignUp);
       router.get('/home',this.homePage);
       router.get('/verify',this.verify);
+      router.get('/auth/facebook',this.getFacebookLogin);
+      router.get('/auth/facebook/callback',this.facebooklogin);
       router.post('/verify',user_validation.verifyValidation,this.postVerify);
       router.post('/',user_validation.loginValidation,this.postLogin);
       router.post('/signup',user_validation.signUpValidation,this.SignUp);
     },
+    getFacebookLogin : passport.authenticate('facebook',{
+        scope: 'email'
+    }),
+
+    facebooklogin : passport.authenticate('facebook',{
+      successRedirect : '/home',
+      failureRedirect : '/',
+      failureFlash : true
+    }),
+
     getSignUp : function(req,res){
       const error = req.flash('validationError');
       //console.log(error);
