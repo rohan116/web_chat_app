@@ -38,6 +38,7 @@ container.resolve(function(users,lodash){
   function configureExpress(app){
     require('./passport/passport-local');
     require('./passport/passport_facebook');
+    require('./passport/passport-google');
 
     app.use(express.static('public'));
     app.use(cookieParser());

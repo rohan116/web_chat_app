@@ -235,9 +235,31 @@ footer .container .text-muted {
   background: #4aa1f3;
 }
 
-.btn-facebook:hover,btn-facebook:active {
+.btn-facebook:hover,.btn-facebook:active {
   background: #4aa1f3;
   color: #fff;
+}
+
+.btn-gplus{
+  background: #e33b34;
+  border-radius: 0;
+  color : #fff;
+  width: 100px;
+}
+
+.btn-gplus:link , .btn-gplus:visited {
+  color:#fff;
+  text-decoration: none;
+  background: #e33b34;
+}
+
+.btn-gplus:hover,.btn-gplus:active {
+  background: #e33b34;
+  color: #fff;
+}
+
+.google_auth{
+  padding-top: 3px;
 }
 
 .header_register{
